@@ -2,25 +2,41 @@
 # See: https://circleci.com/docs/2.0/configuration-reference
 version: 2.1
 
+commands:
+  dockerhub_login:
+    description: "Logs into Dockerhub"
+    parameters:
+      username:
+        type: string
+      token:
+        type: string
+    steps:
+      - run: echo << parameters.token >> | docker login -u << parameters.username >> --password-stdin
+
+executors:
+  builder:
+    docker:
+      - image: kyrielight/takibi:latest # Custom image specifically for building Java projects using Bazel
+    resource_class: medium
+    working_directory: /tmp/athenaeum
+
 # Define a job to be invoked later in a workflow.
 # See: https://circleci.com/docs/2.0/configuration-reference/#jobs
 jobs:
-  say-hello:
-    # Specify the execution environment. You can specify an image from Dockerhub or use one of our Convenience Images from CircleCI's Developer Hub.
-    # See: https://circleci.com/docs/2.0/configuration-reference/#docker-machine-macos-windows-executor
-    docker:
-      - image: cimg/base:stable
-    # Add steps to the job
-    # See: https://circleci.com/docs/2.0/configuration-reference/#steps
+  build_binary:
+    executor: builder
     steps:
       - checkout
-      - run:
-          name: "Say hello"
-          command: "echo Hello, World!"
+      - run: |
+          bazel build //jusagi_deploy.jar
+      - persist_to_workspace:
+          root: workspace
+          paths:
+            - bazel-bin
 
 # Invoke jobs via workflows
 # See: https://circleci.com/docs/2.0/configuration-reference/#workflows
 workflows:
-  say-hello-workflow:
+  build_test:
     jobs:
-      - say-hello
+      - build_binary

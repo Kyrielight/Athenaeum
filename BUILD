@@ -15,3 +15,12 @@ kt_jvm_binary(
         "//moe/best/athenaeum/app:main"
     ]
 )
+
+# For production releases
+java_binary(
+    name = "jusagi",
+    main_class = "moe.best.athenaeum.Main",
+    runtime_deps = [
+        "//moe/best/athenaeum/app:main"
+    ]
+)
