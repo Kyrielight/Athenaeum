@@ -31,12 +31,11 @@ executors:
 
   publisher:
     environment:
-      IMAGE_NAME: takibi
+      IMAGE_NAME: athenaeum
       PLATFORMS: linux/amd64,linux/arm64
     docker:
       - image: cimg/base:stable
     resource_class: small
-    working_directory: /tmp/athenaeum
 
 # Define a job to be invoked later in a workflow.
 # See: https://circleci.com/docs/2.0/configuration-reference/#jobs
@@ -53,7 +52,7 @@ jobs:
           paths:
             - jusagi_deploy.jar
 
-  downstream:
+  dockerhub_publish:
     executor: publisher
     steps:
       - setup_remote_docker:
@@ -64,13 +63,9 @@ jobs:
           username: $DOCKERHUB_USERNAME
           token: $DOCKERHUB_ACCESS_TOKEN
       - attach_workspace:
-          at: /tmp/athenaeum/bazel-bin
+          at: bazel-bin
       - run: |
-          if [ -f /tmp/athenaeum/bazel-bin/jusagi_deploy.jar ]; then
-            echo "Deploy jar exists";
-          else
-            echo "Deploy jar not found";
-          fi
+          docker buildx build -t $DOCKERHUB_USERNAME/athenaeum:latest --platform $PLATFORMS -f dockerfiles/BuildX.Dockerfile --push .
 
 # Invoke jobs via workflows
 # See: https://circleci.com/docs/2.0/configuration-reference/#workflows
@@ -78,8 +73,14 @@ workflows:
   build_test:
     jobs:
       - build_binary
-      - downstream:
+  deploy_to_docker:
+    jobs:
+      - build_binary
+      - dockerhub_publish:
           context:
             - dockerhub
           requires:
             - build_binary
+    when:
+      and:
+        - equal: [ master, << pipeline.git.branch >> ]
