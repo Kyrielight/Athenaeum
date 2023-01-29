@@ -65,7 +65,7 @@ jobs:
       - attach_workspace:
           at: bazel-bin
       - run: |
-          docker buildx build -t $DOCKERHUB_USERNAME/athenaeum:latest --platform $PLATFORMS -f dockerfiles/BuildX.Dockerfile .
+          docker buildx build -t $DOCKERHUB_USERNAME/athenaeum:latest --platform $PLATFORMS -f dockerfiles/BuildX.Dockerfile --push .
 
 # Invoke jobs via workflows
 # See: https://circleci.com/docs/2.0/configuration-reference/#workflows
