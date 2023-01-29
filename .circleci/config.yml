@@ -73,8 +73,14 @@ workflows:
   build_test:
     jobs:
       - build_binary
+  deploy_to_docker:
+    jobs:
+      - build_binary
       - dockerhub_publish:
           context:
             - dockerhub
           requires:
             - build_binary
+    when:
+      and:
+        - equal: [ master, << pipeline.git.branch >> ]
