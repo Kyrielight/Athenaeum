@@ -40,7 +40,7 @@ jobs:
           at: /tmp/athenaeum/bazel-bin
       
       - run: |
-          if [ -f /tmp/athenaeum/bazel-bin/ ]; then
+          if [ -f /tmp/athenaeum/bazel-bin/jusagi_deploy.jar ]; then
             echo "Deploy jar exists";
           else
             echo "Deploy jar not found";
