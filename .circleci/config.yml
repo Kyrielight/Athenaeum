@@ -30,9 +30,21 @@ jobs:
       - run: |
           bazel build //:jusagi_deploy.jar
       - persist_to_workspace:
-          root: workspace
+          root: bazel-bin
           paths:
-            - bazel-bin
+            - jusagi_deploy.jar
+  downstream:
+    executor: builder
+    steps:
+      - attach_workspace:
+          at: /tmp/athenaeum/bazel-bin
+      
+      - run: |
+          if [ -f /tmp/athenaeum/bazel-bin/ ]; then
+            echo "Deploy jar exists";
+          else
+            echo "Deploy jar not found";
+          fi
 
 # Invoke jobs via workflows
 # See: https://circleci.com/docs/2.0/configuration-reference/#workflows
@@ -40,3 +52,6 @@ workflows:
   build_test:
     jobs:
       - build_binary
+      - downstream:
+          requires:
+            - build_binary
