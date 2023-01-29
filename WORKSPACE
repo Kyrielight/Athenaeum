@@ -57,12 +57,14 @@ maven_install(
         # "org.jetbrains.kotlinx:kotlinx-serialization-core-jvm:%s" % KOTLINX_SERIALIZATION_VERSION,
         # Ktor
         "io.ktor:ktor-http-jvm:%s" % KTOR_VERSION,
+        "io.ktor:ktor-client-core-jvm:%s" % KTOR_VERSION,
         "io.ktor:ktor-server-jvm:%s" % KTOR_VERSION,
         "io.ktor:ktor-server-netty-jvm:%s" % KTOR_VERSION,
         "io.ktor:ktor-server-core-jvm:%s" % KTOR_VERSION,
         "io.ktor:ktor-server-host-common-jvm:%s" % KTOR_VERSION,
         "io.ktor:ktor-server-resources-jvm:%s" % KTOR_VERSION,
         "io.ktor:ktor-server-status-pages-jvm:%s" % KTOR_VERSION,
+        "io.ktor:ktor-server-test-host-jvm:%s" % KTOR_VERSION,
     ],
     repositories = [
         "https://repo1.maven.org/maven2/",

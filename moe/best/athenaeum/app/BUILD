@@ -24,6 +24,11 @@ kt_jvm_library(
         "@maven//:io_ktor_ktor_server_host_common_jvm", 
         "@maven//:io_ktor_ktor_server_resources_jvm",
     ],
+    resources = [
+        "//moe/best/athenaeum/resources:application.conf"
+    ],
+    # Configuration is expected to live at /{application.conf}
+    resource_strip_prefix = "moe/best/athenaeum/resources",
     visibility = [
         "//visibility:public"
     ]

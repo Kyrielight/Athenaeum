@@ -1,33 +1,35 @@
 package moe.best.athenaeum.apptests.udc.social
 
-import moe.best.athenaeum.library.Library
-import moe.best.athenaeum.startup.loader.root.RootLoader
-
+import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.Test
-import org.junit.jupiter.api.BeforeEach
-import org.junit.jupiter.api.AfterEach
+
+import io.ktor.client.request.*
+import io.ktor.http.*
+import io.ktor.server.testing.*
 
 class YouTubeTest {
 
     @Test
-    fun sampleTest() {
-        // TODO: Create bunny and appRequest mock objects.
+    fun testCommandOnly() {
+        createTestApplication()
     }
 
-    companion object {
+        // TODO: Make this more widely available to all tests
+        // TODO: Enable adding things like AcceptLanguage parameters
+        companion object {
 
-        private var library: Library? = null
+            fun createTestApplication() = testApplication {
+                val client = createClient {
+                    followRedirects = false
+                }
 
-        @BeforeEach
-        fun setUp() {
-            library = RootLoader.generateLibrary()
+                val response = client?.get("/bunny") {
+                    url {
+                        parameters.append("query", "yt")
+                    }
+                }
+                assertEquals(HttpStatusCode.Found, response?.status)
+                assertEquals("https://youtube.com", response?.headers?.get("Location"))
         }
-
-        @AfterEach
-        fun tearDown() {
-            library = null
-        }
-
     }
-
 }
