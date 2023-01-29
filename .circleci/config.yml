@@ -28,7 +28,7 @@ jobs:
     steps:
       - checkout
       - run: |
-          bazel build //jusagi_deploy.jar
+          bazel build //:jusagi_deploy.jar
       - persist_to_workspace:
           root: workspace
           paths:
