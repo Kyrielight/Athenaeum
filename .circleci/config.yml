@@ -73,6 +73,10 @@ workflows:
   build_test:
     jobs:
       - build_binary
+    when:
+      not:
+        equal: [ master,  << pipeline.git.branch >> ]
+
   deploy_to_docker:
     jobs:
       - build_binary
