@@ -1,0 +1,13 @@
+load("@io_bazel_rules_kotlin//kotlin:jvm.bzl", "kt_jvm_library")
+
+kt_jvm_library(
+    name = "commands",
+    srcs = glob(["**/*.kt"]),
+    deps = [
+        "//moe/best/athenaeum/app/middleware:middleware",
+        "@maven//:io_ktor_ktor_http_jvm",
+    ],
+    visibility = [
+        "//visibility:public"
+    ]
+)
