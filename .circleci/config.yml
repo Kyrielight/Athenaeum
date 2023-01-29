@@ -3,6 +3,7 @@
 version: 2.1
 
 commands:
+
   dockerhub_login:
     description: "Logs into Dockerhub"
     parameters:
@@ -13,16 +14,44 @@ commands:
     steps:
       - run: echo << parameters.token >> | docker login -u << parameters.username >> --password-stdin
 
+  prepare_buildx_context:
+    description: "Prepares BuildX context"
+    steps:
+      - run: |
+          docker context create buildx-build
+          docker buildx create --use buildx-build
+
+  dockerhub_login:
+    description: "Logs into DockerHub"
+    parameters:
+      username:
+        type: string
+      token:
+        type: string
+    steps:
+      - run: echo << parameters.token >> | docker login -u << parameters.username >> --password-stdin
+
 executors:
+
   builder:
     docker:
       - image: kyrielight/takibi:latest # Custom image specifically for building Java projects using Bazel
     resource_class: medium
     working_directory: /tmp/athenaeum
 
+  publisher:
+    environment:
+      IMAGE_NAME: takibi
+      PLATFORMS: linux/amd64,linux/arm64
+    docker:
+      - image: cimg/base:stable
+    resource_class: small
+    working_directory: /tmp/athenaeum
+
 # Define a job to be invoked later in a workflow.
 # See: https://circleci.com/docs/2.0/configuration-reference/#jobs
 jobs:
+
   build_binary:
     executor: builder
     steps:
@@ -33,12 +62,16 @@ jobs:
           root: bazel-bin
           paths:
             - jusagi_deploy.jar
+
   downstream:
-    executor: builder
+    executor: publisher
     steps:
+      - setup_remote_docker:
+          version: 20.10.11
+      - checkout
+      - prepare_buildx_context
       - attach_workspace:
           at: /tmp/athenaeum/bazel-bin
-      
       - run: |
           if [ -f /tmp/athenaeum/bazel-bin/jusagi_deploy.jar ]; then
             echo "Deploy jar exists";
