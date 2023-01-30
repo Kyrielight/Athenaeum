@@ -18,6 +18,6 @@ kt_jvm_library(
     # Configuration is expected to live at /{application.conf}
     resource_strip_prefix = "moe/best/athenaeum/resources",
     visibility = [
-        "//visibility:public",
+        "//moe/best/athenaeum/apptests:__subpackages__",
     ]
 )
