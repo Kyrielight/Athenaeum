@@ -71,7 +71,7 @@ jobs:
     executor: builder
     steps:
       - checkout
-      - run |
+      - run: |
           bazel test //:all_tests
 
 # Invoke jobs via workflows
