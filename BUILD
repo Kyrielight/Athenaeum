@@ -24,3 +24,11 @@ java_binary(
         "//moe/best/athenaeum/app:main"
     ]
 )
+
+# Run this target to run all tests in Usagi
+test_suite(
+    name = "all_tests",
+    tests = [
+        "//moe/best/athenaeum/apptests:all_tests"
+    ]
+)
