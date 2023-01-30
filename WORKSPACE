@@ -51,10 +51,6 @@ maven_install(
         "org.junit.jupiter:junit-jupiter-engine:%s" % JUNIT5_JUPITER_VERSION,
         "org.junit.platform:junit-platform-runner:%s" % JUNIT5_PLATFORM_VERSION,
         "org.junit.platform:junit-platform-console:%s" % JUNIT5_PLATFORM_VERSION,
-        "org.mockito:mockito-core:%s" % MOCKITO_VERSION,
-        "org.mockito:mockito-junit-jupiter:%s" % MOCKITO_VERSION,
-        # Kotlin
-        # "org.jetbrains.kotlinx:kotlinx-serialization-core-jvm:%s" % KOTLINX_SERIALIZATION_VERSION,
         # Ktor
         "io.ktor:ktor-http-jvm:%s" % KTOR_VERSION,
         "io.ktor:ktor-client-core-jvm:%s" % KTOR_VERSION,
