@@ -29,6 +29,9 @@ object YouTube : Module {
                 Locale.ENGLISH to "youtube.co.uk",
                 Locale.JAPANESE to "youtube.co.jp",
                 LocaleCM.JAPANESE to "youtube.co.jp",
+                Locale.Builder().apply {
+                    setLanguage("zh")
+                }.build() to "youtube.com.hk",
             ).withDefault { "youtube.com" }
 
             override val locales = localeToHost.keys

@@ -15,6 +15,7 @@ kt_jvm_library(
     deps = [
         "//moe/best/athenaeum/app/command:commands",
         "//moe/best/athenaeum/app/library:library",
+        "//moe/best/athenaeum/app/middleware/locales/common:common",
         "//moe/best/athenaeum/app/startup:startup",
         "//moe/best/athenaeum/app/startup/loader:loader",
         "@maven//:io_ktor_ktor_http_jvm",
