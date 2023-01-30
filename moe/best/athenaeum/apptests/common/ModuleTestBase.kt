@@ -6,6 +6,7 @@ import io.ktor.server.testing.*
 
 import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.Test
+import org.junit.jupiter.api.fail
 
 abstract class ModuleTestBase {
 
@@ -21,7 +22,7 @@ abstract class ModuleTestBase {
     fun testBunny(
         query: String,
         expectedURL: String,
-        languageParameter: String? = null,
+        languageParam: String? = null,
         acceptLanguageHeader: String? = null,
     ) {
         testApplication {
@@ -31,7 +32,7 @@ abstract class ModuleTestBase {
                 header("Accept-Language", acceptLanguageHeader) // Will not be set if null.
                 url {
                     parameters.append("query", query)
-                    languageParameter?.let { parameters.append("language", languageParameter) }
+                    languageParam?.let { parameters.append("locale", it) }
                 }
             }.also { res ->
                 assertEquals(HttpStatusCode.Found, res.status)

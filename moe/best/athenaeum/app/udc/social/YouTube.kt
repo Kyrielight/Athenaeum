@@ -10,6 +10,7 @@ import kotlin.text.RegexOption
 import moe.best.athenaeum.command.Target
 import moe.best.athenaeum.command.Pattern
 import moe.best.athenaeum.middleware.Metadata
+import moe.best.athenaeum.middleware.locales.LocaleCM
 import moe.best.athenaeum.startup.Module
 
 object YouTube : Module {
@@ -24,10 +25,17 @@ object YouTube : Module {
 
         override val resolver = object : Target.Resolver {
 
-            override val locales = setOf(Locale.ROOT)
+            val localeToHost = mapOf<Locale, String>(
+                Locale.ENGLISH to "youtube.co.uk",
+                Locale.JAPANESE to "youtube.co.jp",
+                LocaleCM.JAPANESE to "youtube.co.jp",
+            ).withDefault { "youtube.com" }
+
+            override val locales = localeToHost.keys
 
             override fun resolve(target: String, arguments: String?, metadata: Metadata): Url? {
                 // TODO: Implement Metadata based host generation.
+                val host = localeToHost.getValue(metadata.locale ?: Locale.ROOT)
                 arguments?.let { args -> 
                     when (target) {
                         // "yt" & "youtube" commands correlates to a search.
@@ -35,7 +43,7 @@ object YouTube : Module {
                             // "https://youtube.com/results?search_query=%s"
                             return@resolve URLBuilder(
                                     protocol = URLProtocol.HTTPS, 
-                                    host = "youtube.com",
+                                    host = host,
                                     pathSegments = listOf("results"),
                                     parameters = ParametersBuilder().apply {
                                         append("search_query", args)
@@ -45,7 +53,7 @@ object YouTube : Module {
                         else -> throw IllegalArgumentException()
                     }
                 }
-                return URLBuilder(URLProtocol.HTTPS, "youtube.com").build()
+                return URLBuilder(URLProtocol.HTTPS, host).build()
             }
 
         }

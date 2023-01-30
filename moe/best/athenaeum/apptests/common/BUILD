@@ -2,7 +2,7 @@ load("@io_bazel_rules_kotlin//kotlin:jvm.bzl", "kt_jvm_library")
 
 kt_jvm_library(
     name = "module_test_helper",
-    srcs = ["ModuleTestBase.kt"],
+    srcs = glob(["**/*.kt"]),
     deps = [
         "//moe/best/athenaeum/app:main", # Import Application modules
         "@maven//:io_ktor_ktor_client_core_jvm",

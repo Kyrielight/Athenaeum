@@ -25,8 +25,9 @@ object Google : Module {
         override val resolver = object : DefaultResolver, Target.Resolver {
 
             val localeToHost = mapOf<Locale, String>(
+                Locale.ENGLISH to "google.co.uk",
+                Locale.JAPAN to "google.co.jp",
                 Locale.JAPANESE to "google.co.jp",
-                Locale.ENGLISH   to "google.co.uk",
                 Locale.Builder().apply {
                     setLanguage("zh")
                 }.build() to "google.com.hk",
