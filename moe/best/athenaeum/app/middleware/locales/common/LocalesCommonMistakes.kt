@@ -1,4 +1,4 @@
-package moe.best.athenaeum.middleware.locales
+package moe.best.athenaeum.middleware.locales.common
 
 import java.util.Locale
 

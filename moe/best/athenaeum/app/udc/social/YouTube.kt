@@ -10,7 +10,7 @@ import kotlin.text.RegexOption
 import moe.best.athenaeum.command.Target
 import moe.best.athenaeum.command.Pattern
 import moe.best.athenaeum.middleware.Metadata
-import moe.best.athenaeum.middleware.locales.LocaleCM
+import moe.best.athenaeum.middleware.locales.common.LocaleCM
 import moe.best.athenaeum.startup.Module
 
 object YouTube : Module {
