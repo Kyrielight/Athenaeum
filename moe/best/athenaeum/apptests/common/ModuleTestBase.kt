@@ -8,6 +8,7 @@ import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.fail
 
+/** Base class that provides convenience functions to all Module tests. */
 abstract class ModuleTestBase {
 
     /**
