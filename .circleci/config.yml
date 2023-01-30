@@ -67,12 +67,20 @@ jobs:
       - run: |
           docker buildx build -t $DOCKERHUB_USERNAME/athenaeum:latest --platform $PLATFORMS -f dockerfiles/BuildX.Dockerfile --push .
 
+  test_all:
+    executor: builder
+    steps:
+      - checkout
+      - run: |
+          bazel test --test_output=summary //:all_tests
+
 # Invoke jobs via workflows
 # See: https://circleci.com/docs/2.0/configuration-reference/#workflows
 workflows:
   build_test:
     jobs:
       - build_binary
+      - test_all
     when:
       not:
         equal: [ master,  << pipeline.git.branch >> ]

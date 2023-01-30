@@ -1,33 +1,36 @@
 package moe.best.athenaeum.apptests.udc.social
 
-import moe.best.athenaeum.library.Library
-import moe.best.athenaeum.startup.loader.root.RootLoader
-
 import org.junit.jupiter.api.Test
-import org.junit.jupiter.api.BeforeEach
-import org.junit.jupiter.api.AfterEach
 
-class YouTubeTest {
+import moe.best.athenaeum.apptests.common.ModuleTestBase
+
+class YouTubeTest : ModuleTestBase() {
 
     @Test
-    fun sampleTest() {
-        // TODO: Create bunny and appRequest mock objects.
+    fun testTarget_NoArgs() {
+        testBunny("yt", "https://youtube.com")
     }
 
-    companion object {
+    @Test
+    fun testTarget_NoArgs_Japanese() {
+        testBunny("yt", "https://youtube.co.jp", languageParam = "ja")
+        testBunny("yt", "https://youtube.co.jp", languageParam = "jp") // Test misconception
+    }
 
-        private var library: Library? = null
+    @Test
+    fun testTarget_NoArgs_English() {
+        testBunny("yt", "https://youtube.co.uk", languageParam = "en")
+        testBunny("yt", "https://youtube.co.uk", acceptLanguageHeader = "en-UK,en;q=0.9")
+    }
 
-        @BeforeEach
-        fun setUp() {
-            library = RootLoader.generateLibrary()
-        }
+    @Test
+    fun testTarget_NoArgs_Chinese() {
+        testBunny("yt", "https://youtube.com.hk", languageParam = "zh")
+    }
 
-        @AfterEach
-        fun tearDown() {
-            library = null
-        }
-
+    @Test
+    fun testTarget_WithArgs() {
+        testBunny("yt hello world", "https://youtube.com/results?search_query=hello+world")
     }
 
 }

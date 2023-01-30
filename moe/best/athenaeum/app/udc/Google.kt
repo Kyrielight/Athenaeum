@@ -11,6 +11,7 @@ import moe.best.athenaeum.command.DefaultResolver
 import moe.best.athenaeum.command.Target
 import moe.best.athenaeum.command.Pattern
 import moe.best.athenaeum.middleware.Metadata
+import moe.best.athenaeum.middleware.locales.common.LocaleCM
 import moe.best.athenaeum.startup.Module
 
 object Google : Module {
@@ -25,8 +26,9 @@ object Google : Module {
         override val resolver = object : DefaultResolver, Target.Resolver {
 
             val localeToHost = mapOf<Locale, String>(
+                Locale.ENGLISH to "google.co.uk",
                 Locale.JAPANESE to "google.co.jp",
-                Locale.ENGLISH   to "google.co.uk",
+                LocaleCM.JAPANESE to "google.co.jp",
                 Locale.Builder().apply {
                     setLanguage("zh")
                 }.build() to "google.com.hk",

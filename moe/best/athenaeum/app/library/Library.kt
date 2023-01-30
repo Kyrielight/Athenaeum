@@ -77,7 +77,8 @@ final class Library(
         getURLForRequest(bunny, appRequest)?.let { url -> return@getURLForRequest url }
         val metadata = Metadata(bunny, appRequest, defaultResolver)
         bunny.query?.sanitize()?.stripMetadata().let { query ->
-            return@getURLForRequest defaultResolver.resolve(query, metadata)
+            val cleanQuery = if (!query.isNullOrEmpty()) query else null
+            return@getURLForRequest defaultResolver.resolve(cleanQuery, metadata)
         }
     }
 
