@@ -5,11 +5,12 @@ def athena_module_test(test_class, deps = [], **kwargs):
     kt_jvm_test(
         # Pipe the test class to the Console Launcher.
         args = ["--select-class={}".format(test_class)],
-        # Append JUnit5 test dependencies.
+        # Append all dependencies generally needed by a module test.
         deps = deps + [
             "//moe/best/athenaeum/app:main", # Import Application modules
-            "@maven//:io_ktor_ktor_client_core_jvm",
-            "@maven//:io_ktor_ktor_http_jvm",
+            "//moe/best/athenaeum/apptests/common:module_test_helper", # Module test class
+            "@maven//:io_ktor_ktor_client_core_jvm", # Http server
+            "@maven//:io_ktor_ktor_http_jvm", # Http client construction
             "@maven//:io_ktor_ktor_server_test_host_jvm",
             "@maven//:org_junit_jupiter_junit_jupiter_api", # Used in test files.
             "@maven//:org_junit_jupiter_junit_jupiter_engine", # Test Engine
