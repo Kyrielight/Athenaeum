@@ -10,8 +10,8 @@ import kotlin.text.RegexOption
 import moe.best.athenaeum.command.DefaultResolver
 import moe.best.athenaeum.command.Target
 import moe.best.athenaeum.command.Pattern
-import moe.best.athenaeum.middleware.Metadata
-import moe.best.athenaeum.middleware.locales.common.LocaleCM
+import moe.best.athenaeum.middleware.metadata.Metadata
+import moe.best.athenaeum.middleware.metadata.locales.common.LocaleCM
 import moe.best.athenaeum.startup.Module
 
 object Google : Module {

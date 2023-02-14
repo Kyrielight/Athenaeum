@@ -1,10 +1,10 @@
-package moe.best.athenaeum.middleware
+package moe.best.athenaeum.middleware.metadata
 
 import java.util.Locale
 import io.ktor.server.request.ApplicationRequest
 import moe.best.athenaeum.routing.Bunny
-import moe.best.athenaeum.middleware.locales.LocalesMetadata
-import moe.best.athenaeum.middleware.locales.LocalesMetadataResolver
+import moe.best.athenaeum.middleware.metadata.locales.LocalesMetadata
+import moe.best.athenaeum.middleware.metadata.locales.LocalesMetadataResolver
 
 interface MetadataResolver :
     LocalesMetadataResolver {}

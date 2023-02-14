@@ -1,4 +1,4 @@
-package moe.best.athenaeum.middleware.locales
+package moe.best.athenaeum.middleware.metadata.locales
 
 import io.ktor.http.Parameters
 import io.ktor.server.request.ApplicationRequest

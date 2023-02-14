@@ -1,8 +1,8 @@
 package moe.best.athenaeum.command
 
 import io.ktor.http.Url
-import moe.best.athenaeum.middleware.Metadata
-import moe.best.athenaeum.middleware.MetadataResolver
+import moe.best.athenaeum.middleware.metadata.Metadata
+import moe.best.athenaeum.middleware.metadata.MetadataResolver
 
 /** A special type of resolver that will always return a Url. Used for defaults. */
 interface DefaultResolver : MetadataResolver {

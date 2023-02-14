@@ -1,8 +1,8 @@
 package moe.best.athenaeum.command
 
 import moe.best.athenaeum.command.BaseCommand
-import moe.best.athenaeum.middleware.Metadata
-import moe.best.athenaeum.middleware.MetadataResolver
+import moe.best.athenaeum.middleware.metadata.Metadata
+import moe.best.athenaeum.middleware.metadata.MetadataResolver
 import io.ktor.http.Url
 
 abstract class Target(
