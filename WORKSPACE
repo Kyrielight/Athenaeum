@@ -5,6 +5,7 @@ JUNIT5_PLATFORM_VERSION = "1.8.2"
 KTOR_VERSION = "2.2.2"
 MOCKITO_VERSION = "4.6.1"
 MOCKK_VERSION = "1.13.1"
+SERIALISATION_VERSION = "1.4.1"
 # KOTLINX_SERIALIZATION_VERSION = "1.0.1"
 
 rules_kotlin_version = "v1.7.1"
@@ -61,6 +62,8 @@ maven_install(
         "io.ktor:ktor-server-resources-jvm:%s" % KTOR_VERSION,
         "io.ktor:ktor-server-status-pages-jvm:%s" % KTOR_VERSION,
         "io.ktor:ktor-server-test-host-jvm:%s" % KTOR_VERSION,
+        # Serialization
+        "org.jetbrains.kotlinx:kotlinx-serialization-core-jvm:%s" % SERIALISATION_VERSION,
     ],
     repositories = [
         "https://repo1.maven.org/maven2/",

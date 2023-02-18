@@ -5,8 +5,8 @@ import io.ktor.server.request.ApplicationRequest
 import moe.best.athenaeum.command.DefaultResolver
 import moe.best.athenaeum.command.Target
 import moe.best.athenaeum.command.Pattern
-import moe.best.athenaeum.middleware.Metadata
-import moe.best.athenaeum.middleware.Metadata.Companion.stripMetadata
+import moe.best.athenaeum.middleware.metadata.Metadata
+import moe.best.athenaeum.middleware.metadata.Metadata.Companion.stripMetadata
 import moe.best.athenaeum.routing.Bunny
 
 final class Library(
