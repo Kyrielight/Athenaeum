@@ -1,6 +1,23 @@
 load("@io_bazel_rules_kotlin//kotlin:jvm.bzl", "kt_jvm_library")
+load("@io_bazel_rules_kotlin//kotlin:core.bzl", "kt_compiler_plugin")
 load("@rules_jvm_external//:defs.bzl", "artifact")
 
+kt_compiler_plugin(
+    name = "kotlin_serialization_plugin",
+    compile_phase = True,
+    id = "org.jetbrains.kotlin.serialization",
+    stubs_phase = True,
+    deps = [
+        "@com_github_jetbrains_kotlin//:kotlinx-serialization-compiler-plugin",
+    ],
+    visibility = ["//visibility:private"],
+)
+
+kt_jvm_library(
+    name = "kotlin_serialization",
+    exported_compiler_plugins = [":kotlin_serialization_plugin"],
+    visibility = ["//visibility:public"],
+)
 
 package_group(
     name = "root",
