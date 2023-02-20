@@ -38,8 +38,8 @@ kt_jvm_library(
         "//moe/best/athenaeum/app/startup/loader:loader",
         "@maven//:io_ktor_ktor_http_jvm",
         # Begin udc sections
-        "//moe/best/athenaeum/app/udc/social:udc_social",
         "//moe/best/athenaeum/app/udc/knowledge:udc_knowledge",
+        "//moe/best/athenaeum/app/udc/social:udc_social",
     ],
     visibility = [
         # "//src/moe/best/athenaeum:root"
