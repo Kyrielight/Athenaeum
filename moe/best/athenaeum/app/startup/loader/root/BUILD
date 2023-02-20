@@ -6,6 +6,7 @@ kt_jvm_library(
     deps = [
         "//moe/best/athenaeum/app/command:commands",
         "//moe/best/athenaeum/app/library:library",
+        "//moe/best/athenaeum/app/middleware/aliases:aliases",
         "//moe/best/athenaeum/app/udc:udc_root",
     ],
     visibility = [

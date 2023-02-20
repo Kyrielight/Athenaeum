@@ -5,6 +5,7 @@ import io.ktor.server.request.ApplicationRequest
 import moe.best.athenaeum.command.DefaultResolver
 import moe.best.athenaeum.command.Target
 import moe.best.athenaeum.command.Pattern
+import moe.best.athenaeum.middleware.aliases.Aliases
 import moe.best.athenaeum.middleware.metadata.Metadata
 import moe.best.athenaeum.middleware.metadata.Metadata.Companion.stripMetadata
 import moe.best.athenaeum.routing.Bunny
@@ -26,32 +27,38 @@ final class Library(
         bunny.query?.sanitize()?.let { query ->
 
             // Step 1. Check for target exact match.
-            Target.Extractor.targetCommandExactForQuery(query)?.let { command ->
-                targetCommands.get(command)?.let { resolver ->
-                    // Fetch the arguments after the command, and trim all whitespace.
-                    val arguments = query.substringAfter(command).let { 
-                        // Queries need to be stripped of metadata and sanitized.
-                        val args = it.sanitize().stripMetadata()
-                        // Empty args should be passed as null.
-                        if (args.isNullOrEmpty()) null else args
+            Target.Extractor.targetCommandExactForQuery(query)?.let {
+                // Targets may be aliased by environment variables.
+                Aliases.resolveTargetAlias(it).let { command ->
+                    targetCommands.get(command)?.let { resolver ->
+                        // Fetch the arguments after the command, and trim all whitespace.
+                        val arguments = query.substringAfter(command).let {
+                            // Queries need to be stripped of metadata and sanitized.
+                            val args = it.sanitize().stripMetadata()
+                            // Empty args should be passed as null.
+                            if (args.isNullOrEmpty()) null else args
+                        }
+                        val metadata = Metadata(bunny, appRequest, resolver)
+                        return@getURLForRequest resolver.resolve(command, arguments, metadata)
                     }
-                    val metadata = Metadata(bunny, appRequest, resolver)
-                    return@getURLForRequest resolver.resolve(command, arguments, metadata)
                 }
             }
 
             // Step 2. Check for slash match.
-            Target.Extractor.targetCommandSlashForQuery(query)?.let { command -> 
-                targetCommands.get(command)?.let { resolver ->
-                    // Fetch the arguments after the command (and slash), and trim all whitespace.
-                    val arguments = query.substringAfter(command + "/").let { 
-                        // Queries need to be stripped of metadata and sanitized.
-                        val args = it.sanitize().stripMetadata()
-                        // Empty args should be passed as null.
-                        if (args.isNullOrEmpty()) null else args
-                    } 
-                    val metadata = Metadata(bunny, appRequest, resolver)
-                    return@getURLForRequest resolver.resolve(command, arguments, metadata)
+            Target.Extractor.targetCommandSlashForQuery(query)?.let {
+                // Targets may be aliased by environment variables.
+                Aliases.resolveTargetAlias(it).let { command ->
+                    targetCommands.get(command)?.let { resolver ->
+                        // Fetch the arguments after the command (and slash), and trim all whitespace.
+                        val arguments = query.substringAfter(command + "/").let {
+                            // Queries need to be stripped of metadata and sanitized.
+                            val args = it.sanitize().stripMetadata()
+                            // Empty args should be passed as null.
+                            if (args.isNullOrEmpty()) null else args
+                        }
+                        val metadata = Metadata(bunny, appRequest, resolver)
+                        return@getURLForRequest resolver.resolve(command, arguments, metadata)
+                    }
                 }
             }
 

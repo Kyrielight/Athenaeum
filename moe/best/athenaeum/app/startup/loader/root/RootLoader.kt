@@ -1,6 +1,7 @@
 package moe.best.athenaeum.startup.loader.root
 
 import moe.best.athenaeum.library.Library
+import moe.best.athenaeum.middleware.aliases.Aliases
 import moe.best.athenaeum.startup.loader.Loader
 import moe.best.athenaeum.udc.UDCLoaderGenerated
 
@@ -18,6 +19,11 @@ object RootLoader {
      * for all commands.
      */
     fun generateLibrary(): Library {
+
+        // Initialise middleware used in the library.
+        // We do this instead of static init to prevent potential delays.
+        Aliases.initialise()
+
 
         // Get all target commands, starting from the root UDC loader.
         val targetCommands = UDCLoaderGenerated.loadTargetCommands()
