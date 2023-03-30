@@ -1,19 +1,14 @@
-package moe.best.athenaeum.udc
+package moe.best.athenaeum.udc.dictionaries
 
 import kotlin.text.Regex
-import io.ktor.http.Url
 import moe.best.athenaeum.command.Pattern
 import moe.best.athenaeum.command.Target
-import moe.best.athenaeum.library.Library
 import moe.best.athenaeum.startup.loader.Loader
 
-// Begin imports for udc commands
-import moe.best.athenaeum.udc.Google
-import moe.best.athenaeum.udc.dictionaries.DictionariesLoaderGenerated
-import moe.best.athenaeum.udc.knowledge.KnowledgeLoaderGenerated
-import moe.best.athenaeum.udc.social.SocialLoaderGenerated
+// Begin module imports
+import moe.best.athenaeum.udc.dictionaries.Jisho
 
-object UDCLoaderGenerated : Loader() {
+object DictionariesLoaderGenerated : Loader() {
 
     override fun loadTargetCommands(): Map<String, Target.Resolver> {
 
@@ -21,18 +16,15 @@ object UDCLoaderGenerated : Loader() {
 
         // Begin loading target commands in this folder.
         with (TargetLoader) {
-            addTarget(Google.target, targetCommands)
+            addTarget(Jisho.target, targetCommands)
         }
 
         // Begin loading target commands from subfolders.
-        with (TargetLoader) {
-            addTarget(DictionariesLoaderGenerated.loadTargetCommands(), targetCommands)
-            addTarget(KnowledgeLoaderGenerated.loadTargetCommands(), targetCommands)
-            addTarget(SocialLoaderGenerated.loadTargetCommands(), targetCommands)
-        }
+        with (TargetLoader) {}
 
         // Return all commands
         return targetCommands
+
     }
 
     override fun loadPatternCommands(): Set<Pair<Regex, Pattern.Resolver>> {
@@ -43,9 +35,7 @@ object UDCLoaderGenerated : Loader() {
         with (PatternLoader) {}
 
         // Begin loading pattern commands from subfolders.
-        with (PatternLoader) {
-            addPattern(SocialLoaderGenerated.loadPatternCommands(), patternCommands)
-        }
+        with (PatternLoader) {}
 
         // Return all commands
         return patternCommands
