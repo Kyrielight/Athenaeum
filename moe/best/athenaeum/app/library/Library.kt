@@ -27,12 +27,12 @@ final class Library(
         bunny.query?.sanitize()?.let { query ->
 
             // Step 1. Check for target exact match.
-            Target.Extractor.targetCommandExactForQuery(query)?.let {
+            Target.Extractor.targetCommandExactForQuery(query)?.let { rawCommand ->
                 // Targets may be aliased by environment variables.
-                Aliases.resolveTargetAlias(it).let { command ->
+                Aliases.resolveTargetAlias(rawCommand).let { command ->
                     targetCommands.get(command)?.let { resolver ->
                         // Fetch the arguments after the command, and trim all whitespace.
-                        val arguments = query.substringAfter(command).let {
+                        val arguments = query.substringAfter(rawCommand).let {
                             // Queries need to be stripped of metadata and sanitized.
                             val args = it.sanitize().stripMetadata()
                             // Empty args should be passed as null.
@@ -45,12 +45,12 @@ final class Library(
             }
 
             // Step 2. Check for slash match.
-            Target.Extractor.targetCommandSlashForQuery(query)?.let {
+            Target.Extractor.targetCommandSlashForQuery(query)?.let { rawCommand ->
                 // Targets may be aliased by environment variables.
-                Aliases.resolveTargetAlias(it).let { command ->
+                Aliases.resolveTargetAlias(rawCommand).let { command ->
                     targetCommands.get(command)?.let { resolver ->
                         // Fetch the arguments after the command (and slash), and trim all whitespace.
-                        val arguments = query.substringAfter(command + "/").let {
+                        val arguments = query.substringAfter(rawCommand + "/").let {
                             // Queries need to be stripped of metadata and sanitized.
                             val args = it.sanitize().stripMetadata()
                             // Empty args should be passed as null.
