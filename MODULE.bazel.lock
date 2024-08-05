@@ -1,6 +1,6 @@
 {
   "lockFileVersion": 6,
-  "moduleFileHash": "845fe722c86e617be05631eaab459342e4cc3adc25001948342932203c528ef5",
+  "moduleFileHash": "76939a484d922eb4f87b9210551f9811e2195f2d1e5a294feea14a6fa3b9fbf5",
   "flags": {
     "cmdRegistries": [
       "https://bcr.bazel.build/"
@@ -22,7 +22,9 @@
       "key": "<root>",
       "repoName": "moe_best_athenaeum",
       "executionPlatformsToRegister": [],
-      "toolchainsToRegister": [],
+      "toolchainsToRegister": [
+        "//:kotlin_toolchain"
+      ],
       "extensionUsages": [
         {
           "extensionBzlFile": "@rules_jvm_external//:extensions.bzl",
@@ -30,7 +32,7 @@
           "usingModule": "<root>",
           "location": {
             "file": "@@//:MODULE.bazel",
-            "line": 22,
+            "line": 26,
             "column": 22
           },
           "imports": {
@@ -61,7 +63,7 @@
               "devDependency": false,
               "location": {
                 "file": "@@//:MODULE.bazel",
-                "line": 23,
+                "line": 27,
                 "column": 14
               }
             }

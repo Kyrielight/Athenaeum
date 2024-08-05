@@ -18,6 +18,10 @@ bazel_dep(name = "rules_java", version = "7.4.0")
 bazel_dep(name = "rules_jvm_external", version = "6.0")
 bazel_dep(name = "rules_kotlin", version = "1.9.0")
 
+# Use a custom Kotlin toolchain for this module.
+# This is needed since we target higher (JVM 11) than the default (JVM 1.8).
+register_toolchains("//:kotlin_toolchain")
+
 # Import Maven into this module
 maven = use_extension("@rules_jvm_external//:extensions.bzl", "maven")
 maven.install(
