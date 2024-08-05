@@ -7,7 +7,7 @@ kt_compiler_plugin(
     id = "org.jetbrains.kotlin.serialization",
     stubs_phase = True,
     deps = [
-        "@maven//:org_jetbrains_kotlinx_kotlinx_serialization_core_jvm"
+        "@rules_kotlin//kotlin/compiler:kotlinx-serialization-compiler-plugin",
     ],
     visibility = ["//visibility:private"],
 )
