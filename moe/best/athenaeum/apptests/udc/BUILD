@@ -6,12 +6,12 @@ test_suite(
         "//moe/best/athenaeum/apptests/udc/dictionaries:all_tests",
         "//moe/best/athenaeum/apptests/udc/knowledge:all_tests",
         "//moe/best/athenaeum/apptests/udc/social:all_tests",
-        ":google_test",
+        ":GoogleTest",
     ],
 )
 
 athena_module_test(
-    name = "google_test",
+    name = "GoogleTest",
     srcs = ["GoogleTest.kt"],
     test_class = "moe.best.athenaeum.apptests.udc.GoogleTest",
 )

@@ -8,7 +8,7 @@ test_suite(
 )
 
 athena_module_test(
-    name = "jisho_test",
+    name = "JishoTest",
     srcs = ["JishoTest.kt"],
     test_class = "moe.best.athenaeum.apptests.udc.dictionaries.JishoTest",
 )

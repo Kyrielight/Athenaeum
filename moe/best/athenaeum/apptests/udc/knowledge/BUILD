@@ -8,7 +8,7 @@ test_suite(
 )
 
 athena_module_test(
-    name = "wikipedia_test",
+    name = "WikipediaTest",
     srcs = ["WikipediaTest.kt"],
     test_class = "moe.best.athenaeum.apptests.udc.knowledge.WikipediaTest",
 )

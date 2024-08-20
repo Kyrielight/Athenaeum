@@ -8,7 +8,7 @@ test_suite(
 )
 
 athena_module_test(
-    name = "youtube_test",
-    srcs = glob(["**/*.kt"]),
+    name = "YouTubeTest",
+    srcs = ["YouTubeTest.kt"],
     test_class = "moe.best.athenaeum.apptests.udc.social.YouTubeTest",
 )
