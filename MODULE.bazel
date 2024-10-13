@@ -17,6 +17,7 @@ module(
 bazel_dep(name = "rules_java", version = "7.4.0")
 bazel_dep(name = "rules_jvm_external", version = "6.0")
 bazel_dep(name = "rules_kotlin", version = "1.9.0")
+bazel_dep(name = "rules_python", version = "0.36.0")
 
 # Use a custom Kotlin toolchain for this module.
 # This is needed since we target higher (JVM 11) than the default (JVM 1.8).
@@ -43,3 +44,11 @@ maven.install(
     ],
 )
 use_repo(maven, "maven")
+
+# Disable the root user Python build error for CI/CD builds
+python = use_extension("@rules_python//python/extensions:python.bzl", "python")
+python.toolchain(
+    configure_coverage_tool = False,
+    ignore_root_user_error = True,
+    python_version = "3.11",
+)
