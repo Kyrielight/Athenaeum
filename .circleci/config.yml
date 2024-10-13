@@ -56,7 +56,7 @@ jobs:
     executor: publisher
     steps:
       - setup_remote_docker:
-          version: 20.10.11
+          version: default
       - checkout
       - prepare_buildx_context
       - dockerhub_login:
