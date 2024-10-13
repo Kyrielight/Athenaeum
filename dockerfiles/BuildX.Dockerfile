@@ -3,6 +3,6 @@
 FROM --platform=linux/${TARGETARCH} amazoncorretto:11 as release
 
 WORKDIR /athenaeum
-COPY ./bazel-bin/jusagi_deploy.jar ./usagi.jar
+COPY ./bazel-bin/moe/best/athenaeum/app/usagi_deploy.jar ./usagi.jar
 
 ENTRYPOINT ["java", "-jar", "usagi.jar"]

@@ -46,11 +46,11 @@ jobs:
     steps:
       - checkout
       - run: |
-          bazel build //:jusagi_deploy.jar
+          bazel build //moe/best/athenaeum/app:usagi_deploy.jar
       - persist_to_workspace:
           root: bazel-bin
           paths:
-            - jusagi_deploy.jar
+            - moe/best/athenaeum/app/usagi_deploy.jar
 
   dockerhub_publish:
     executor: publisher

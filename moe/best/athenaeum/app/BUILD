@@ -1,3 +1,4 @@
+load("@rules_java//java:defs.bzl", "java_binary")
 load("@rules_kotlin//kotlin:jvm.bzl", "kt_jvm_library")
 load("@rules_kotlin//kotlin:core.bzl", "kt_compiler_plugin")
 
@@ -47,5 +48,13 @@ kt_jvm_library(
     resource_strip_prefix = "moe/best/athenaeum/resources",
     visibility = [
         "//visibility:public"
+    ]
+)
+
+java_binary(
+    name = "usagi",
+    main_class = "moe.best.athenaeum.Main",
+    runtime_deps = [
+        "//moe/best/athenaeum/app:main"
     ]
 )
