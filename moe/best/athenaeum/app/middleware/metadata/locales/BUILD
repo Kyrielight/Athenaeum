@@ -1,14 +1,13 @@
-load("@io_bazel_rules_kotlin//kotlin:jvm.bzl", "kt_jvm_library")
+load("@rules_kotlin//kotlin:jvm.bzl", "kt_jvm_library")
+
+package(default_visibility = ["//visibility:public"])
 
 kt_jvm_library(
     name = "locales",
-    srcs = glob(["**/*.kt"]),
+    srcs = ["Locales.kt"],
     deps = [
-        "//moe/best/athenaeum/app/routing:routing",
+        "//moe/best/athenaeum/app/routing:bunny",
         "@maven//:io_ktor_ktor_http_jvm",
         "@maven//:io_ktor_ktor_server_core_jvm",
     ],
-    visibility = [
-        "//visibility:public"
-    ]
 )

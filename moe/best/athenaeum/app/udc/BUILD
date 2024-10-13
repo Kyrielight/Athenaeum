@@ -1,49 +1,37 @@
-load("@io_bazel_rules_kotlin//kotlin:jvm.bzl", "kt_jvm_library")
+load("@rules_kotlin//kotlin:jvm.bzl", "kt_jvm_library")
 
-package_group(
-    name = "pg_udc_root",
-    packages = [
-        "//moe/best/athenaeum/app/udc",
-    ],
-)
+package(default_visibility = ["//visibility:public"])
 
 kt_jvm_library(
-    name = "udc_default_google",
-    srcs = [
-        "Google.kt"
-    ],
+    name = "google",
+    srcs = ["Google.kt"],
     deps = [
-        "//moe/best/athenaeum/app/command:commands",
-        "//moe/best/athenaeum/app/library:library",
-        "//moe/best/athenaeum/app/middleware/metadata/locales/common:common",
-        "//moe/best/athenaeum/app/startup:startup",
-        "//moe/best/athenaeum/app/startup/loader:loader",
+        "//moe/best/athenaeum/app/command:target",
+        "//moe/best/athenaeum/app/command:pattern",
+        "//moe/best/athenaeum/app/library",
+        "//moe/best/athenaeum/app/middleware/metadata/locales/common:locales_common_mistakes",
+        "//moe/best/athenaeum/app/startup:module",
+        "//moe/best/athenaeum/app/startup/loader",
         "@maven//:io_ktor_ktor_http_jvm",
     ],
-    visibility = [
-        "//visibility:public"
-    ]
 )
 
 kt_jvm_library(
-    name = "udc_root",
+    name = "udc_loader",
     srcs = [
-        "Google.kt",
-        "UDCLoader.generated.kt",
+        "UDCLoader.kt",
     ],
     deps = [
-        "//moe/best/athenaeum/app/command:commands",
-        "//moe/best/athenaeum/app/library:library",
-        "//moe/best/athenaeum/app/startup:startup",
-        "//moe/best/athenaeum/app/startup/loader:loader",
+        ":google",
+        "//moe/best/athenaeum/app/command:target",
+        "//moe/best/athenaeum/app/command:pattern",
+        "//moe/best/athenaeum/app/library",
+        "//moe/best/athenaeum/app/startup:module",
+        "//moe/best/athenaeum/app/startup/loader",
         "@maven//:io_ktor_ktor_http_jvm",
         # Begin udc sections
-        "//moe/best/athenaeum/app/udc/dictionaries:udc_dictionaries",
-        "//moe/best/athenaeum/app/udc/knowledge:udc_knowledge",
-        "//moe/best/athenaeum/app/udc/social:udc_social",
+        "//moe/best/athenaeum/app/udc/dictionaries:dictionaries_loader",
+        "//moe/best/athenaeum/app/udc/knowledge:knowledge_loader",
+        "//moe/best/athenaeum/app/udc/social:social_loader",
     ],
-    visibility = [
-        # "//src/moe/best/athenaeum:root"
-        "//visibility:public"
-    ]
 )

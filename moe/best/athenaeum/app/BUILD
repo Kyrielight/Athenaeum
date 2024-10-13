@@ -1,6 +1,6 @@
-load("@io_bazel_rules_kotlin//kotlin:jvm.bzl", "kt_jvm_library")
-load("@io_bazel_rules_kotlin//kotlin:core.bzl", "kt_compiler_plugin")
-load("@rules_jvm_external//:defs.bzl", "artifact")
+load("@rules_java//java:defs.bzl", "java_binary")
+load("@rules_kotlin//kotlin:jvm.bzl", "kt_jvm_library")
+load("@rules_kotlin//kotlin:core.bzl", "kt_compiler_plugin")
 
 kt_compiler_plugin(
     name = "kotlin_serialization_plugin",
@@ -8,7 +8,7 @@ kt_compiler_plugin(
     id = "org.jetbrains.kotlin.serialization",
     stubs_phase = True,
     deps = [
-        "@com_github_jetbrains_kotlin//:kotlinx-serialization-compiler-plugin",
+        "@rules_kotlin//kotlin/compiler:kotlinx-serialization-compiler-plugin",
     ],
     visibility = ["//visibility:private"],
 )
@@ -30,11 +30,11 @@ kt_jvm_library(
     name = "main",
     srcs = ["Main.kt"],
     deps = [
-        "//moe/best/athenaeum/app/command:commands",
-        "//moe/best/athenaeum/app/library:library",
-        "//moe/best/athenaeum/app/routing:routing",
-        "//moe/best/athenaeum/app/udc:udc_default_google",
-        "//moe/best/athenaeum/app/startup/loader/root:rootloader",
+        "//moe/best/athenaeum/app/command:base_command",
+        "//moe/best/athenaeum/app/library",
+        "//moe/best/athenaeum/app/routing:bunny",
+        "//moe/best/athenaeum/app/udc:google",
+        "//moe/best/athenaeum/app/startup/loader/root:root_loader",
         "@maven//:io_ktor_ktor_http_jvm",
         "@maven//:io_ktor_ktor_server_jvm",
         "@maven//:io_ktor_ktor_server_netty_jvm",
@@ -48,5 +48,13 @@ kt_jvm_library(
     resource_strip_prefix = "moe/best/athenaeum/resources",
     visibility = [
         "//visibility:public"
+    ]
+)
+
+java_binary(
+    name = "usagi",
+    main_class = "moe.best.athenaeum.Main",
+    runtime_deps = [
+        "//moe/best/athenaeum/app:main"
     ]
 )

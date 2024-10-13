@@ -34,9 +34,8 @@ fun Application.usagi() {
 
     routing {
         get<Bunny> { bunny ->
-            library.getURLForRequest(bunny, call.request, defaultResolver).let { url ->
-                call.respondRedirect(url)
-            }
+            val url = library.getURLForRequest(bunny, call.request, defaultResolver)
+            call.respondRedirect(url)
         }
     }
 }

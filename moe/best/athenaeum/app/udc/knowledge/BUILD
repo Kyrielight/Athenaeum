@@ -1,20 +1,32 @@
-load("@io_bazel_rules_kotlin//kotlin:jvm.bzl", "kt_jvm_library")
+load("@rules_kotlin//kotlin:jvm.bzl", "kt_jvm_library")
+
+package(default_visibility = ["//visibility:public"])
 
 kt_jvm_library(
-    name = "udc_knowledge",
-    srcs = [
-        "KnowledgeLoader.generated.kt",
-        "Wikipedia.kt",
-    ],
+    name = "wikipedia",
+    srcs = ["Wikipedia.kt",],
     deps = [
-        "//moe/best/athenaeum/app/command:commands",
-        "//moe/best/athenaeum/app/middleware/metadata:metadata",
-        "//moe/best/athenaeum/app/middleware/metadata/locales/common:common",
-        "//moe/best/athenaeum/app/startup:startup",
-        "//moe/best/athenaeum/app/startup/loader:loader",
+        "//moe/best/athenaeum/app/command:target",
+        "//moe/best/athenaeum/app/command:pattern",
+        "//moe/best/athenaeum/app/middleware/metadata",
+        "//moe/best/athenaeum/app/middleware/metadata/locales/common:locales_common_mistakes",
+        "//moe/best/athenaeum/app/startup:module",
+        "//moe/best/athenaeum/app/startup/loader",
         "@maven//:io_ktor_ktor_http_jvm",
     ],
-    visibility = [
-        "//moe/best/athenaeum/app/udc:pg_udc_root"
-    ]
+)
+
+kt_jvm_library(
+    name = "knowledge_loader",
+    srcs = ["KnowledgeLoader.kt"],
+    deps = [
+        ":wikipedia",
+        "//moe/best/athenaeum/app/command:target",
+        "//moe/best/athenaeum/app/command:pattern",
+        "//moe/best/athenaeum/app/middleware/metadata",
+        "//moe/best/athenaeum/app/middleware/metadata/locales/common:locales_common_mistakes",
+        "//moe/best/athenaeum/app/startup:module",
+        "//moe/best/athenaeum/app/startup/loader",
+        "@maven//:io_ktor_ktor_http_jvm",
+    ],
 )

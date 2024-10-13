@@ -31,6 +31,7 @@ class YouTubeTest : ModuleTestBase() {
     @Test
     fun testTarget_WithArgs() {
         testBunny("yt hello world", "https://youtube.com/results?search_query=hello+world")
+        testBunny("yt/hello world", "https://youtube.com/results?search_query=hello+world")
     }
 
 }

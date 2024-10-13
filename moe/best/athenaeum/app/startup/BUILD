@@ -1,12 +1,12 @@
-load("@io_bazel_rules_kotlin//kotlin:jvm.bzl", "kt_jvm_library")
+load("@rules_kotlin//kotlin:jvm.bzl", "kt_jvm_library")
+
+package(default_visibility = ["//visibility:public"])
 
 kt_jvm_library(
-    name = "startup",
-    srcs = glob(["**/*.kt"]),
+    name = "module",
+    srcs = ["Module.kt"],
     deps = [
-        "//moe/best/athenaeum/app/command:commands",
+        "//moe/best/athenaeum/app/command:pattern",
+        "//moe/best/athenaeum/app/command:target",
     ],
-    visibility = [
-        "//visibility:public"
-    ]
 )
